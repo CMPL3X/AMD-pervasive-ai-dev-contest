@@ -1,0 +1,5 @@
+Varētu sataisīt ka arī atver tos games, kurus izvēlās.
+Varbūt ar voice rec var pateikt lai sāk.
+Lielas pogas, lai vieglāk nospiest, var pieminēt lapā
+Pie rocket leauge var izmantot voice rec, piem. "Boost" vai "Jump"
+Jāpievieno skaņa, kad sākās tracking.
