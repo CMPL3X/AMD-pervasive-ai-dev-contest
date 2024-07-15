@@ -11,7 +11,7 @@ sg.theme('DarkAmber')
 window_size = (600, 480)
 
 # Audio notification for button press
-Click = AudioSegment.from_mp3("Click_sfx.mp3")
+Click = AudioSegment.from_file("ClickSFX.mp3", format="mp3")
 
 # Function to list available webcam ports (replace with your system-specific logic)
 def get_webcam_ports():

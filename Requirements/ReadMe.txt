@@ -7,3 +7,7 @@ python -m pip install pysimplegui
 pip install opencv-python
 
 pip install pydub
+pip install ffmpeg-python
+pip install simpleaudio
+pip install PyAudio
+pip install ffpyplayer
