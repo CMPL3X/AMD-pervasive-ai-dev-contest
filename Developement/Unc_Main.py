@@ -1,8 +1,9 @@
 import time
 import PySimpleGUI as sg
 import cv2  # Import OpenCV for webcam testing (optional)
-from pydub import AudioSegment
-from pydub.playback import play  # For audio notif
+import pygame  # For audio notif
+
+pygame.mixer.init()
 
 # Defining the theme of the window
 sg.theme('DarkAmber')
@@ -10,12 +11,10 @@ sg.theme('DarkAmber')
 # Set window size
 window_size = (600, 480)
 
-# Audio notification for button press
-Click = AudioSegment.from_file("ClickSFX.mp3", format="mp3")
-
 # Function to list available webcam ports (replace with your system-specific logic)
 def get_webcam_ports():
     webcam_ports = []
+    print("Checking webcam ports ...")
     for i in range(10):  # Check for up to 10 webcams (adjust as needed)
         cap = cv2.VideoCapture(i)
         if cap.isOpened():
@@ -55,6 +54,24 @@ AmongUs_layout = [
     [sg.Text("Also, with voice control, you can stop or pause tracking, by saying stop or pause. You will hear a sound!", font=('Oswald', 10, 'bold'))],
     [sg.Button('Next', size=(20, 1), font=('Oswald', 15, 'bold'))]]
 
+TetrIO_layout = [
+    [sg.Text("You have selected the Tetr.io option. This is how to control the gameplay:", font=('Oswald', 10, 'bold'))],
+    [sg.Text("1) There will be a 15 seccond timer that will allow you to turn on the game.", font=('Oswald', 10, 'bold'))],
+    [sg.Text("2) When the tracking initilises, there will be a gentle sound.", font=('Oswald', 10, 'bold'))],
+    [sg.Text("3) When it starts, you will be able to control the cubes position with head movements.", font=('Oswald', 10, 'bold'))],
+    [sg.Text("Theres also voice commands, like rotate - that will rotate the cube and drop - that will drop the cube.", font=('Oswald', 10, 'bold'))],
+    [sg.Text("Also, with voice control, you can stop or pause tracking, by saying stop or pause. You will hear a sound!", font=('Oswald', 10, 'bold'))],
+    [sg.Button('Next', size=(20, 1), font=('Oswald', 15, 'bold'))]]
+
+RocketL_layout = [
+    [sg.Text("You have selected the Among Us option. This is how to control the gameplay:", font=('Oswald', 10, 'bold'))],
+    [sg.Text("1) There will be a 15 seccond timer that will allow you to turn on the game.", font=('Oswald', 10, 'bold'))],
+    [sg.Text("2) When the tracking initilises, there will be a gentle sound.", font=('Oswald', 10, 'bold'))],
+    [sg.Text("3) When it starts, you will be able to control the cars heading with head movements.", font=('Oswald', 10, 'bold'))],
+    [sg.Text("Theres also voice commands, like boost - that will use the boost of the car.", font=('Oswald', 10, 'bold'))],
+    [sg.Text("Also, with voice control, you can stop or pause tracking, by saying stop or pause. You will hear a sound!", font=('Oswald', 10, 'bold'))],
+    [sg.Button('Next', size=(20, 1), font=('Oswald', 15, 'bold'))]]
+
 # Create the info window
 info_window = sg.Window("AMD AI contest -> Inclusive Gaming", info_layout, finalize=True)
 
@@ -64,14 +81,17 @@ while True:
 
     # Check for 'Next' button click
     if event == 'Next':
+        print("Choose game")
+        pygame.mixer.music.load("ClickSFX.mp3")
+        pygame.mixer.music.play()
         info_window.close()  # Close the info window
-        play(Click)
         game_window = sg.Window("AMD AI contest -> Inclusive Gaming", game_layout, finalize=True, size=window_size)  # Create the game selection window
         break  # Exit the info window loop
 
     # Check for close button or ESC
     if event == sg.WIN_CLOSED:
-        play(Click)
+        pygame.mixer.music.load("ClickSFX.mp3")
+        pygame.mixer.music.play()
         break
 
 info_window.close()
@@ -83,36 +103,79 @@ while True:
     if event in ("Tetr.io", "Among Us", "Rocket League"):
         print(f"You clicked: {event}")  # You can add custom actions for each button here
         if event == "Tetr.io":
+            pygame.mixer.music.load("ClickSFX.mp3")
+            pygame.mixer.music.play()
             game_window.close()
-            play(Click)
-        if event == "Among Us":
-            game_window.close()
-            play(Click)
-            AmongUs_window = sg.Window("AMD AI contest -> Inclusive Gaming", AmongUs_layout, finalize=True)
+            TetrIO_window = sg.Window("AMD AI contest -> Inclusive Gaming", TetrIO_layout, finalize=True)
             while True:
-                event, values = AmongUs_window.read()
+                event, values = TetrIO_window.read()
 
                 # Check for 'Next' button click
                 if event == 'Next':
-                    AmongUs_window.close()  # Close the info window
-                    play(Click)
+                    pygame.mixer.music.load("ClickSFX.mp3")
+                    pygame.mixer.music.play()
+                    TetrIO_window.close()  # Close the info window
                     time.sleep(15);
                     print("Starting recognition...")
                     break
 
                 # Check for close button or ESC
                 if event == sg.WIN_CLOSED:
-                    play(Click)
+                    pygame.mixer.music.load("ClickSFX.mp3")
+                    pygame.mixer.music.play()
                     break
 
-            AmongUs_window.close()
-        if event == "Rocket League":
+        if event == "Among Us":
+            pygame.mixer.music.load("ClickSFX.mp3")
+            pygame.mixer.music.play()
             game_window.close()
-            play(Click)
+            AmongUs_window = sg.Window("AMD AI contest -> Inclusive Gaming", AmongUs_layout, finalize=True)
+            while True:
+                event, values = AmongUs_window.read()
+
+                # Check for 'Next' button click
+                if event == 'Next':
+                    pygame.mixer.music.load("ClickSFX.mp3")
+                    pygame.mixer.music.play()
+                    AmongUs_window.close()  # Close the info window
+                    time.sleep(15);
+                    print("Starting recognition...")
+                    break
+
+                # Check for close button or ESC
+                if event == sg.WIN_CLOSED:
+                    pygame.mixer.music.load("ClickSFX.mp3")
+                    pygame.mixer.music.play()
+                    break
+            AmongUs_window.close()
+
+        if event == "Rocket League":
+            pygame.mixer.music.load("ClickSFX.mp3")
+            pygame.mixer.music.play()
+            game_window.close()
+            RocketL_window = sg.Window("AMD AI contest -> Inclusive Gaming", RocketL_layout, finalize=True)
+            while True:
+                event, values = RocketL_window.read()
+
+                # Check for 'Next' button click
+                if event == 'Next':
+                    pygame.mixer.music.load("ClickSFX.mp3")
+                    pygame.mixer.music.play()
+                    RocketL_window.close()  # Close the info window
+                    time.sleep(15);
+                    print("Starting recognition...")
+                    break
+
+                # Check for close button or ESC
+                if event == sg.WIN_CLOSED:
+                    pygame.mixer.music.load("ClickSFX.mp3")
+                    pygame.mixer.music.play()
+                    break
 
     # Check for keyboard presses
     if event == sg.WIN_CLOSED or event == 'Cancel':  # ESC key
+        pygame.mixer.music.load("ClickSFX.mp3")
+        pygame.mixer.music.play()
         break
-    play(Click)
 
 game_window.close()

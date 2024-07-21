@@ -1,13 +1,12 @@
 Before runnig the program, you have to download python and install the following libraries :
 
+For GUI install :
 python -m pip install pysimplegui
  -> Have to make an account
  -> First time, when running, will ask to login
 
+For Camera inputs and ai install :
 pip install opencv-python
 
-pip install pydub
-pip install ffmpeg-python
-pip install simpleaudio
-pip install PyAudio
-pip install ffpyplayer
+For sound install :
+import pygame
