@@ -14,3 +14,5 @@
 
 ### For sound install :
 ### import pygame
+
+# For more information about this project, visit my hackster.io project page : https://......
