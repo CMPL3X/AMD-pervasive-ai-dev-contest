@@ -10,7 +10,7 @@
 > -> First time, when running, will ask to login
 >
 > For Camera inputs and ai install :
-> pip install opencv-python
+> pip install opencv-python torch torchvision
 >
 > For sound install :
 > import pygame
