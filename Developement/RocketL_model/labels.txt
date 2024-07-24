@@ -1,3 +1,0 @@
-0 RL-left
-1 RL-right
-2 Normal

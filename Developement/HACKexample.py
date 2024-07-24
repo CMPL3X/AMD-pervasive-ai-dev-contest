@@ -20,8 +20,8 @@ countdown_seconds = 30 # If you need more time before the code starts, change th
 camera_port = 2 # !!! REPLACE this with your accual camera port. You can check with the cameraPortTest.py code
 
 # !!! REPLACE these paths with the absolute paths to your model and labels files
-model_path = "C:\\Users\\Admin\\Desktop\\keras_model.h5"
-labels_path = "C:\\Users\\Admin\\Desktop\\labels.txt"
+model_path = "E:\\MANI FAILI\\Programming-Graphics-Games\\MD-pervasive-ai-dev-contest\\Developement\\AmongUs_model\\keras_model.h5"
+labels_path = "E:\\MANI FAILI\\Programming-Graphics-Games\\AMD-pervasive-ai-dev-contest\\Developement\\AmongUs_model\\labels.txt"
 
 keyboard = Controller()
 
