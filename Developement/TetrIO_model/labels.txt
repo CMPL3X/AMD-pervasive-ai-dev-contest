@@ -1,0 +1,4 @@
+0 Tetr-left
+1 Tetr-right
+2 Tetr-rotate
+3 Normal

@@ -1,5 +1,7 @@
 import time
 import PySimpleGUI as sg
+from keras.models import load_model
+import numpy as np
 import cv2  # Import OpenCV for webcam testing (optional)
 import pygame  # For audio notif
 
@@ -59,16 +61,16 @@ TetrIO_layout = [
     [sg.Text("1) There will be a 15 seccond timer that will allow you to turn on the game.", font=('Oswald', 10, 'bold'))],
     [sg.Text("2) When the tracking initilises, there will be a gentle sound.", font=('Oswald', 10, 'bold'))],
     [sg.Text("3) When it starts, you will be able to control the cubes position with head movements.", font=('Oswald', 10, 'bold'))],
-    [sg.Text("Theres also voice commands, like rotate - that will rotate the cube and drop - that will drop the cube.", font=('Oswald', 10, 'bold'))],
+    [sg.Text("Theres also voice commands, like drop - that will drop the cube.", font=('Oswald', 10, 'bold'))],
     [sg.Text("Also, with voice control, you can stop or pause tracking, by saying stop or pause. You will hear a sound!", font=('Oswald', 10, 'bold'))],
     [sg.Button('Next', size=(20, 1), font=('Oswald', 15, 'bold'))]]
 
 RocketL_layout = [
-    [sg.Text("You have selected the Among Us option. This is how to control the gameplay:", font=('Oswald', 10, 'bold'))],
+    [sg.Text("You have selected the Rocket League option. This is how to control the gameplay:", font=('Oswald', 10, 'bold'))],
     [sg.Text("1) There will be a 15 seccond timer that will allow you to turn on the game.", font=('Oswald', 10, 'bold'))],
     [sg.Text("2) When the tracking initilises, there will be a gentle sound.", font=('Oswald', 10, 'bold'))],
     [sg.Text("3) When it starts, you will be able to control the cars heading with head movements.", font=('Oswald', 10, 'bold'))],
-    [sg.Text("Theres also voice commands, like boost - that will use the boost of the car.", font=('Oswald', 10, 'bold'))],
+    [sg.Text("Theres also voice commands, like speed - that will make the car start driving, brakes - that will stop the car and boost - that will use the boost of the car.", font=('Oswald', 10, 'bold'))],
     [sg.Text("Also, with voice control, you can stop or pause tracking, by saying stop or pause. You will hear a sound!", font=('Oswald', 10, 'bold'))],
     [sg.Button('Next', size=(20, 1), font=('Oswald', 15, 'bold'))]]
 

@@ -7,6 +7,7 @@ python -m pip install pysimplegui
 
 For Camera inputs and ai install :
 pip install opencv-python torch torchvision
+pip install tensorflow
 
 For sound install :
 import pygame

@@ -1,0 +1,5 @@
+0 AmngUs-up
+1 AmngUs-down
+2 AmngUs-right
+3 Normal
+4 AmngUs-left
