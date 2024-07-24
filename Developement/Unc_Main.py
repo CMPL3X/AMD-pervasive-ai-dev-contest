@@ -10,6 +10,13 @@ from PIL import Image
 
 pygame.mixer.init()
 
+AmongUs_model_path = "E:\\MANI FAILI\\Programming-Graphics-Games\\AMD-pervasive-ai-dev-contest\\Developement\\AmongUs_model\\AmongUs_model.h5"
+AmongUs_labels_path = "E:\\MANI FAILI\\Programming-Graphics-Games\\AMD-pervasive-ai-dev-contest\\Developement\\AmongUs_model\\labels.txt"
+
+keyboard = Controller()
+
+AmongUs_model = TeachableMachine(model_path=AmongUs_model_path, labels_file_path=AmongUs_labels_path)
+
 # Defining the theme of the window
 sg.theme('DarkAmber')
 
@@ -144,7 +151,51 @@ while True:
                     pygame.mixer.music.play()
                     AmongUs_window.close()  # Close the info window
                     time.sleep(15);
+                    # JĀPIEVIENO SKAŅA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     print("Starting recognition...")
+                    while True:
+                        _, img = cap.read()
+
+                        # Convert the image (numpy array) to bytes
+                        img_bytes = cv2.imencode('.jpg', img)[1].tobytes()
+                        
+                        # Classify the image
+                        result = AmongUs_model.classify_image(io.BytesIO(img_bytes))
+
+                        # Extract classification results
+                        class_index = result["class_index"]
+                        class_name = result["class_name"]
+                        class_confidence = result["class_confidence"]
+                        predictions = result["predictions"]
+
+                        # Print prediction and confidence score
+                        print("Class Index:", class_index)
+                        print("Class Confidence:", class_confidence)
+                        print("Predictions:", predictions)
+
+                        # Show the image in a window
+                        cv2.imshow("Webcam Image", img)
+
+                        if class_index == 0:
+                            print("AmngUs-up")
+                        if class_index == 1:
+                            print("AmngUs-down")
+                            keyboard.press(Key.left)
+                            keyboard.release(Key.left)
+                        if class_index == 2:
+                            print("AmngUs-right")
+                            keyboard.press(Key.right)
+                            keyboard.release(Key.right)
+                        if class_index == 3:
+                            print("Normal")
+                            keyboard.press(Key.up)
+                            keyboard.release(Key.up)
+                        if class_index == 4:
+                            print("AmngUs-left")
+                            keyboard.press(Key.up)
+                            keyboard.release(Key.up)
+                        time.sleep(0.5)
+
                     break
 
                 # Check for close button or ESC
