@@ -8,6 +8,10 @@ python -m pip install pysimplegui
 For Camera inputs and ai install :
 pip install opencv-python torch torchvision
 pip install tensorflow
+pip install teachable-machine
 
 For sound install :
-import pygame
+pip install pygame
+
+For keystroke simulation :
+pip install pynput

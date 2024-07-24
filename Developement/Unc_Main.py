@@ -1,9 +1,12 @@
 import time
 import PySimpleGUI as sg
-from keras.models import load_model
+from teachable_machine import TeachableMachine
 import numpy as np
-import cv2  # Import OpenCV for webcam testing (optional)
-import pygame  # For audio notif
+import cv2
+import pygame
+from pynput.keyboard import Key, Controller
+import io
+from PIL import Image
 
 pygame.mixer.init()
 
