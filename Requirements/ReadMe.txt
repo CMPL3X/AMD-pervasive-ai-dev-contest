@@ -7,7 +7,7 @@ python -m pip install pysimplegui
 
 For Camera inputs and ai install :
 pip install opencv-python
-pip install tensorflow opencv-python numpy
+pip install teachable-machine
 
 For sound install :
 pip install pygame
@@ -17,3 +17,6 @@ pip install pynput
 
 For TTS :
 pip install pyttsx3
+
+For speach recognition :
+pip install pyaudio speech_recognition
