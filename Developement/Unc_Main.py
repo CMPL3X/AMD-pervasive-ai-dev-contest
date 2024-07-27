@@ -1,21 +1,19 @@
 import time
 import PySimpleGUI as sg
-from teachable_machine import TeachableMachine
-import numpy as np
 import cv2
 import pygame
 from pynput.keyboard import Key, Controller
-import io
-from PIL import Image
+import pyttsx3
+
+engine = pyttsx3.init()
+rate = engine.getProperty('rate')
+engine.setProperty('rate', 120)
+volume = engine.getProperty('volume')
+engine.setProperty('volume',0.8)
 
 pygame.mixer.init()
 
-model_path = "keras_model\\keras_model.h5"
-labels_path = "keras_model\\labels.txt"
-
 keyboard = Controller()
-
-model = TeachableMachine(model_path=model_path, labels_file_path=labels_path)
 
 # Defining the theme of the window
 sg.theme('DarkAmber')
@@ -23,7 +21,7 @@ sg.theme('DarkAmber')
 # Set window size
 window_size = (600, 480)
 
-countdown_seconds = 15
+countdown_seconds = 10
 
 # Function to list available webcam ports (replace with your system-specific logic)
 def get_webcam_ports():
@@ -61,7 +59,7 @@ game_layout = [
 
 AmongUs_layout = [
     [sg.Text("You have selected the Among Us option. This is how to control the gameplay:", font=('Oswald', 10, 'bold'))],
-    [sg.Text("1) There will be a 15 seccond timer that will allow you to turn on the game.", font=('Oswald', 10, 'bold'))],
+    [sg.Text("1) There will be a " + str(countdown_seconds) + " seccond timer that will allow you to turn on the game.", font=('Oswald', 10, 'bold'))],
     [sg.Text("2) When the tracking initilises, there will be a gentle sound.", font=('Oswald', 10, 'bold'))],
     [sg.Text("3) When it starts, you will be able to control the players position with head movements.", font=('Oswald', 10, 'bold'))],
     [sg.Text("Theres also voice commands, like action - that will either kill or report.", font=('Oswald', 10, 'bold'))],
@@ -70,7 +68,7 @@ AmongUs_layout = [
 
 TetrIO_layout = [
     [sg.Text("You have selected the Tetr.io option. This is how to control the gameplay:", font=('Oswald', 10, 'bold'))],
-    [sg.Text("1) There will be a 15 seccond timer that will allow you to turn on the game.", font=('Oswald', 10, 'bold'))],
+    [sg.Text("1) There will be a " + str(countdown_seconds) + " seccond timer that will allow you to turn on the game.", font=('Oswald', 10, 'bold'))],
     [sg.Text("2) When the tracking initilises, there will be a gentle sound.", font=('Oswald', 10, 'bold'))],
     [sg.Text("3) When it starts, you will be able to control the cubes position with head movements.", font=('Oswald', 10, 'bold'))],
     [sg.Text("Theres also voice commands, like drop - that will drop the cube.", font=('Oswald', 10, 'bold'))],
@@ -79,7 +77,7 @@ TetrIO_layout = [
 
 RocketL_layout = [
     [sg.Text("You have selected the Rocket League option. This is how to control the gameplay:", font=('Oswald', 10, 'bold'))],
-    [sg.Text("1) There will be a 15 seccond timer that will allow you to turn on the game.", font=('Oswald', 10, 'bold'))],
+    [sg.Text("1) There will be a " + str(countdown_seconds) + " seccond timer that will allow you to turn on the game.", font=('Oswald', 10, 'bold'))],
     [sg.Text("2) When the tracking initilises, there will be a gentle sound.", font=('Oswald', 10, 'bold'))],
     [sg.Text("3) When it starts, you will be able to control the cars heading with head movements.", font=('Oswald', 10, 'bold'))],
     [sg.Text("Theres also voice commands, like speed - that will make the car start driving, brakes - that will stop the car and boost - that will use the boost of the car.", font=('Oswald', 10, 'bold'))],
@@ -130,6 +128,8 @@ while True:
                     pygame.mixer.music.play()
                     TetrIO_window.close()  # Close the info window
                     print("Starting recognition...")
+                    engine.say("Face recognition is going to start in " + str(countdown_seconds) + " seconds. You will hear an beep.")
+                    engine.runAndWait()
                     break
 
                 # Check for close button or ESC
@@ -151,57 +151,13 @@ while True:
                     pygame.mixer.music.load("ClickSFX.mp3")
                     pygame.mixer.music.play()
                     AmongUs_window.close()  # Close the info window
-
+                    engine.say("Face recognition is going to start in " + str(countdown_seconds) + " seconds. You will hear an beep.")
+                    engine.runAndWait()
                     for seconds_remaining in range(countdown_seconds, 0, -1):
                         print(f"Starting in {seconds_remaining} second{'s' if seconds_remaining > 1 else ''}")
                         time.sleep(1)
-
                     # JĀPIEVIENO SKAŅA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     print("Starting recognition...")
-                    while True:
-                        _, img = cap.read()
-
-                        # Convert the image (numpy array) to bytes
-                        img_bytes = cv2.imencode('.jpg', img)[1].tobytes()
-                        
-                        # Classify the image
-                        result = model.classify_image(io.BytesIO(img_bytes))
-
-                        # Extract classification results
-                        class_index = result["class_index"]
-                        class_name = result["class_name"]
-                        class_confidence = result["class_confidence"]
-                        predictions = result["predictions"]
-
-                        # Print prediction and confidence score
-                        print("Class Index:", class_index)
-                        print("Class Confidence:", class_confidence)
-                        print("Predictions:", predictions)
-
-                        # Show the image in a window
-                        cv2.imshow("Webcam Image", img)
-
-                        if class_index == 0:
-                            print("AmngUs-up")
-                            keyboard.press(Key.up)
-                            keyboard.release(Key.up)
-                        if class_index == 1:
-                            print("AmngUs-down")
-                            keyboard.press(Key.down)
-                            keyboard.release(Key.down)
-                        if class_index == 2:
-                            print("AmngUs-right")
-                            keyboard.press(Key.right)
-                            keyboard.release(Key.right)
-                        if class_index == 3:
-                            print("Normal")
-                        if class_index == 4:
-                            print("AmngUs-left")
-                            keyboard.press(Key.left)
-                            keyboard.release(Key.left)
-                        time.sleep(0.5)
-
-                    break
 
                 # Check for close button or ESC
                 if event == sg.WIN_CLOSED:
@@ -223,6 +179,8 @@ while True:
                     pygame.mixer.music.load("ClickSFX.mp3")
                     pygame.mixer.music.play()
                     RocketL_window.close()  # Close the info window
+                    engine.say("Face recognition is going to start in " + str(countdown_seconds) + " seconds. You will hear an beep.")
+                    engine.runAndWait()
                     print("Starting recognition...")
                     break
 
