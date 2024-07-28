@@ -16,6 +16,8 @@ labels_path = "image_model/labels.txt"
 
 model = TeachableMachine(model_path=model_path, labels_file_path=labels_path)
 
+countdown_seconds = 10
+
 engine = pyttsx3.init()
 rate = engine.getProperty('rate')
 engine.setProperty('rate', 120)
@@ -169,8 +171,6 @@ sg.theme('DarkAmber')
 
 # Set window size
 window_size = (600, 480)
-
-countdown_seconds = 10
 
 # Function to list available webcam ports (replace with your system-specific logic)
 def get_webcam_ports():
