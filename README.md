@@ -25,4 +25,4 @@
 > For speach recognition :
 > pip install pyaudio speech_recognition
 
-# For more information about this project, visit my hackster.io project page : [https://......](https://www.hackster.io/cmplx/inclusive-gaming-gaming-with-head-movements-and-mic-input-1f7a07)
+# For more information about this project, visit my hackster.io project page : https://www.hackster.io/gustavsandersons/gaming-with-artificial-intelligence-82f61d
